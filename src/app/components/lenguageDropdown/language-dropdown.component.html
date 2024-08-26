@@ -1,33 +1,15 @@
-<div class="flex items-center gap-2">
-    <div class="relative">
-      <select
-        [ngClass]="isDarkTheme ? 'bg-dark text-white' : 'bg-light text-light-text'"
-        [value]="language"
-        (change)="handleLanguageChange($event)"
-        [style.backgroundImage]="'url(' + (language === 'en' ? 'assets/flags/usa.png' : 'assets/flags/ec.svg') + ')'"
-        [style.backgroundSize]="'20px'"
-        [style.backgroundPosition]="'right 10px center'"
-        [style.backgroundRepeat]="'no-repeat'"
-      >
-        <option value="en">
-          <span class="block md:hidden">
-            <img src="assets/flags/usa.png" alt="English" class="w-4 h-4 inline-block" />
-          </span>
-          <span class="hidden md:inline-flex items-center gap-1">
-            <img src="assets/flags/usa.png" alt="English" class="w-4 h-4 inline-block" />
-            English
-          </span>
-        </option>
-        <option value="es">
-          <span class="block md:hidden">
-            <img src="assets/flags/ec.svg" alt="Español" class="w-4 h-4 inline-block" />
-          </span>
-          <span class="hidden md:inline-flex items-center gap-1">
-            <img src="assets/flags/ec.svg" alt="Español" class="w-4 h-4 inline-block" />
-            Español
-          </span>
-        </option>
-      </select>
+<!-- language-dropdown.component.html -->
+<div class="relative inline-block text-left">
+    <button (click)="toggleDropdown()" [ngClass]="isDarkTheme ? 'bg-dark text-white' : 'bg-light'" class="flex items-center gap-2 border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-md">
+    <img [src]="selectedLanguage === 'en' ? usFlag : ecFlag" alt="Flag" class="h-6 w-6">
+    {{ selectedLanguage === 'en' ? 'English' : 'Español' }}
+  </button>
+    <div *ngIf="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-10">
+        <a (click)="changeLanguage('en')" class="flex items-center gap-2 px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600">
+            <img [src]="usFlag" alt="US Flag" class="h-6 w-6"> {{ 'toolbar.english' | translate }}
+        </a>
+        <a (click)="changeLanguage('es')" class="flex items-center gap-2 px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600">
+            <img [src]="ecFlag" alt="EC Flag" class="h-6 w-6"> {{ 'toolbar.spanish' | translate }}
+        </a>
     </div>
-  </div>
-  
+</div>

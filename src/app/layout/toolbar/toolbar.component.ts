@@ -25,7 +25,9 @@ import { LanguageDropdownComponent } from '../../components/lenguageDropdown/lan
 export class ToolbarComponent {
   isDarkTheme: boolean = false;
 
-  constructor(private _httpThemeService: HttpThemeService) {}
+  constructor(
+    private _httpThemeService: HttpThemeService,
+  ) {}
 
   ngOnInit(): void {
     this._httpThemeService.isDarkTheme$.subscribe(theme => this.isDarkTheme = theme);

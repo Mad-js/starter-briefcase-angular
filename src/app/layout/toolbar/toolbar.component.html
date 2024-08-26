@@ -1,11 +1,10 @@
 <header class="flex items-center justify-between px-8 h-16 w-full" [ngClass]="isDarkTheme ? 'bg-dark' : 'bg-light'">
-  <div class="flex items-center gap-4">
-    <img src="assets/logo/madjs.png" alt="logo" class="h-14" />
-    <h1 [ngClass]="isDarkTheme ? 'text-white' : 'text-black'">Mad JS</h1>
-  </div>
-  <div class="flex items-center gap-4">
-    <!-- Otros elementos -->
-     <!-- <app-language-dropdown></app-language-dropdown> -->
-    <app-theme-controller></app-theme-controller>
-  </div>
+    <div class="flex items-center gap-4">
+        <img src="assets/logo/madjs.png" alt="logo" class="h-14" />
+        <h1 [ngClass]="isDarkTheme ? 'text-white' : 'text-black'">Mad JS</h1>
+    </div>
+    <div class="flex items-center gap-4">
+        <app-language-dropdown></app-language-dropdown>
+        <app-theme-controller></app-theme-controller>
+    </div>
 </header>

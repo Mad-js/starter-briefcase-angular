@@ -1,28 +1,44 @@
-import { Component } from '@angular/core';
-import { HttpLenguageService } from '../../services/lenguage/http-lenguage.service';
+import { Component, OnInit } from '@angular/core';
+import { HttpTranslationService } from '../../services/lenguage/http-translation.service';
 import { HttpThemeService } from '../../services/theme/http-theme.service';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-language-dropdown',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    TranslateModule
+  ],
   templateUrl: './language-dropdown.component.html',
-  styleUrl: './language-dropdown.component.css'
+  styleUrls: ['./language-dropdown.component.css']
 })
-export class LanguageDropdownComponent {
-  language: string = 'es'; // Idioma predeterminado
-  isDarkTheme: boolean = false; // Ejemplo de tema, ajusta según tu servicio de tema
+export class LanguageDropdownComponent implements OnInit {
+  selectedLanguage: string = 'es';
+  isDarkTheme: boolean = false;
+  usFlag = 'assets/flags/usa.png';
+  ecFlag = 'assets/flags/ec.svg';
+  dropdownOpen: boolean = false;
 
-  constructor(private _httpLenguageService: HttpLenguageService, private _httpThemeService: HttpThemeService) {}
+  constructor(
+    private translationService: HttpTranslationService,
+    private themeService: HttpThemeService
+  ) {}
 
   ngOnInit(): void {
-    this._httpLenguageService.language$.subscribe(lang => this.language = lang);
-    this._httpThemeService.isDarkTheme$.subscribe((theme: boolean) => this.isDarkTheme = theme);
+    this.selectedLanguage = this.translationService.currentLanguage;
+    this.themeService.isDarkTheme$.subscribe(isDark => this.isDarkTheme = isDark);
   }
 
-  handleLanguageChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this._httpLenguageService.setLanguage(selectElement.value);
+  changeLanguage(language: string): void {
+    this.translationService.setLanguage(language);
+    this.selectedLanguage = language;
+    this.dropdownOpen = false; // Close the dropdown after selection
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 }

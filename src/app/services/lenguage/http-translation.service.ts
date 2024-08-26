@@ -1,24 +1,42 @@
-import { Injectable } from '@angular/core';
-import { HttpLenguageService } from './http-lenguage.service';
-import en from '../../../assets/i18n/en.json';
-import es from '../../../assets/i18n/es.json';
-import { map } from 'rxjs/operators'; // Importa el operador map
-import { Observable } from 'rxjs'; // Importa Observable
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpTranslationService {
-  private translations: { [key: string]: any } = {
-    en,
-    es
-  };
+  private readonly LANGUAGE_KEY = 'selectedLanguage';
 
-  constructor(private _httpLenguageService: HttpLenguageService) {}
+  constructor(
+    private translateService: TranslateService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      const savedLanguage = localStorage.getItem(this.LANGUAGE_KEY) || 'en';
+      this.translateService.setDefaultLang('en');
+      this.translateService.use(savedLanguage);
+    } else {
+      // Fallback language for server-side rendering
+      this.translateService.setDefaultLang('en');
+    }
+  }
 
-  getTranslations(): Observable<any> {
-    return this._httpLenguageService.language$.pipe(
-      map((language: string) => this.translations[language] || {})
-    );
+  get currentLanguage(): string {
+    return this.translateService.currentLang || 'en';
+  }
+
+  setLanguage(language: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.translateService.use(language);
+      localStorage.setItem(this.LANGUAGE_KEY, language);
+    } else {
+      // Fallback language handling for server-side rendering
+      this.translateService.use(language);
+    }
+  }
+
+  getTranslation(key: string): string {
+    return this.translateService.instant(key);
   }
 }
