@@ -6,6 +6,7 @@ import { ThemeControllerComponent } from '../../components/themeController/theme
 import { HttpThemeService } from '../../services/theme/http-theme.service';
 import { CommonModule } from '@angular/common';
 import { LanguageDropdownComponent } from '../../components/lenguageDropdown/language-dropdown.component';
+import { NavigationMenuComponent } from '../../components/navigation/navigationMenu/navigation-menu.component';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { LanguageDropdownComponent } from '../../components/lenguageDropdown/lan
     ButtonModule,
     ThemeControllerComponent,
     CommonModule,
-    LanguageDropdownComponent
+    LanguageDropdownComponent,
+    NavigationMenuComponent
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'
