@@ -1,0 +1,33 @@
+<div class="flex items-center gap-2">
+    <div class="relative">
+      <select
+        [ngClass]="isDarkTheme ? 'bg-dark text-white' : 'bg-light text-light-text'"
+        [value]="language"
+        (change)="handleLanguageChange($event)"
+        [style.backgroundImage]="'url(' + (language === 'en' ? 'assets/flags/usa.png' : 'assets/flags/ec.svg') + ')'"
+        [style.backgroundSize]="'20px'"
+        [style.backgroundPosition]="'right 10px center'"
+        [style.backgroundRepeat]="'no-repeat'"
+      >
+        <option value="en">
+          <span class="block md:hidden">
+            <img src="assets/flags/usa.png" alt="English" class="w-4 h-4 inline-block" />
+          </span>
+          <span class="hidden md:inline-flex items-center gap-1">
+            <img src="assets/flags/usa.png" alt="English" class="w-4 h-4 inline-block" />
+            English
+          </span>
+        </option>
+        <option value="es">
+          <span class="block md:hidden">
+            <img src="assets/flags/ec.svg" alt="Español" class="w-4 h-4 inline-block" />
+          </span>
+          <span class="hidden md:inline-flex items-center gap-1">
+            <img src="assets/flags/ec.svg" alt="Español" class="w-4 h-4 inline-block" />
+            Español
+          </span>
+        </option>
+      </select>
+    </div>
+  </div>
+  
