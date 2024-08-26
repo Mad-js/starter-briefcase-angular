@@ -1,5 +1,7 @@
 <app-toolbar></app-toolbar>
 <main class="flex-1">
-    <router-outlet></router-outlet>
+    <app-page-wrapper>
+        <router-outlet></router-outlet>
+    </app-page-wrapper>
+    <app-footer class="mt-8"></app-footer>
 </main>
-<app-footer class="mt-8"></app-footer>
